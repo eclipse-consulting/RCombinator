@@ -1,9 +1,13 @@
 # RCombinator
-Run multiple tasks concurrently using Clojure's concurrency primitives (e.g., agents, atoms, core.async). Users will define task scheduling rules via a simple DSL embedded in Clojure. The scheduler should process and execute tasks based on these user-defined rules, and ensure tasks run in parallel.
+
+Run multiple tasks concurrently using Clojure's concurrency primitives (e.g., agents, atoms, core.async)! 
+
+Define task scheduling rules via a simple DSL embedded in Clojure! 
+
+Process and execute tasks based on these user-defined rules, and ensure tasks run in parallel!
 
 *Note*: Not for production use.
 
-## Clojure Concurrent Task Scheduler with DSL for Rule Definition
 
 Clojure's software transactional memory (STM) system and immutable data structures make it highly suited to building concurrent applications without the typical complexities of locking and synchronization. Its agents, refs, and atoms offer tools for managing state in multithreaded environments, making it ideal for concurrent data processing tasks, like building scalable web services or real-time data processing systems.
 
