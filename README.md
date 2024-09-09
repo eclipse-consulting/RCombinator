@@ -16,32 +16,6 @@ Clojure's core.async library provides Go-like channels for managing asynchronous
 Thanks to macros, Clojure allows for powerful metaprogramming, making it possible to generate code at compile time. This is useful for tasks like template generation, test case generation, or simplifying repetitive code patterns in large systems.
 
 ## DSL Example
-```clojure
-(defn start []
-  ;; Define and hot-load Task A that fetches data from an API every 5 minutes
-  (hot-load-task
-   {:name "API Fetch Task"
-    :interval "5m"
-    :on-complete (fn []
-                   (let [response (http/get "https://api.example.com/data")]
-                     (println "Fetched data:" (:body response))))
-    :condition (fn [_] true)})
-
-  ;; Define and hot-load Task B that processes some data every minute
-  (hot-load-task
-   {:name "Data Processing Task"
-    :interval "1m"
-    :on-complete (fn []
-                   (let [data [1 2 3 4 5 6 7 8 9 10]
-                         result (reduce + data)]
-                     (println "Processed data, sum is:" result)))
-    :condition (fn [_] true)})
-
-  ;; Start both tasks in separate loops
-  (task-loop "API Fetch Task")
-  (task-loop "Data Processing Task"))
-
-```
 
 ### Performing a Network Request Every 10 Minutes
 
@@ -89,5 +63,29 @@ Thanks to macros, Clojure allows for powerful metaprogramming, making it possibl
   :condition (fn [_] true)})
 ```
 
+### Concurrent Tasks Updating Shared Data 
+```clojure
+(defn start []
+  ;; Define Task A that increments the counter every 2 seconds
+  (hot-load-task
+   {:name "Task A"
+    :interval "2s"
+    :on-complete (fn [] (increment-counter))
+    :condition (fn [_] true)})
 
+  ;; Define Task B that also increments the counter every 3 seconds
+  (hot-load-task
+   {:name "Task B"
+    :interval "3s"
+    :on-complete (fn [] (increment-counter))
+    :condition (fn [_] true)})
+
+  ;; Start both tasks
+  (task-loop "Task A")
+  (task-loop "Task B"))
+
+;; Start the system by calling the `start` function.
+;; This will schedule the tasks and start the execution loops.
+(start)
+```
 
