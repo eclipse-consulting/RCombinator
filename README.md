@@ -3,7 +3,7 @@ Clojure Concurrent Task Scheduler with DSL for Rule Definition
 
 Clojure's software transactional memory (STM) system and immutable data structures make it highly suited to building concurrent applications without the typical complexities of locking and synchronization. Its agents, refs, and atoms offer tools for managing state in multithreaded environments, making it ideal for concurrent data processing tasks, like building scalable web services or real-time data processing systems.
 
-## Usage
+## DSL Example
 ```clojure
 (defn start []
   ;; Define and hot-load Task A that fetches data from an API every 5 minutes
