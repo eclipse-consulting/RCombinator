@@ -40,3 +40,52 @@ Thanks to macros, Clojure allows for powerful metaprogramming, making it possibl
   (task-loop "Data Processing Task"))
 
 ```
+
+### Performing a Network Request Every 10 Minutes
+
+```clojure
+(require '[clj-http.client :as http])
+
+(hot-load-task
+ {:name "API Fetch Task"
+  :interval "10m"
+  :on-complete (fn []
+                 (let [response (http/get "https://api.example.com/data")]
+                   (println "Fetched data:" (:body response))))
+  :condition (fn [_] true)})
+```
+
+### Sending an Email Every Hour
+```clojure
+(require '[postal.core :as postal])
+
+(hot-load-task
+ {:name "Email Task"
+  :interval "1h"
+  :on-complete (fn []
+                 (postal/send-message {:from "you@example.com"
+                                       :to "recipient@example.com"
+                                       :subject "Task Complete"
+                                       :body "Your scheduled task has completed successfully."})
+                 (println "Email sent"))
+  :condition (fn [_] true)})
+```
+
+### Running a Background Job (e.g., Cleanup)
+
+```clojure
+(require '[clojure.java.io :as io])
+
+(hot-load-task
+ {:name "Cleanup Task"
+  :interval "30m"
+  :on-complete (fn []
+                 (doseq [file (filter #(.startsWith (.getName %) "temp")
+                                      (file-seq (io/file "/tmp")))]
+                   (io/delete-file file))
+                 (println "Temporary files cleaned up"))
+  :condition (fn [_] true)})
+```
+
+
+
