@@ -7,6 +7,8 @@ Clojure's Lisp heritage makes it an excellent choice for building DSLs (Domain-S
 
 Clojure's core.async library provides Go-like channels for managing asynchronous communication, which makes it highly suited for writing distributed systems that require message-passing or asynchronous tasks. Clojure's simplicity and high-level abstractions allow for efficient modeling of complex distributed workflows.
 
+Thanks to macros, Clojure allows for powerful metaprogramming, making it possible to generate code at compile time. This is useful for tasks like template generation, test case generation, or simplifying repetitive code patterns in large systems.
+
 ## DSL Example
 ```clojure
 (defn start []
