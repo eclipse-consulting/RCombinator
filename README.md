@@ -71,7 +71,7 @@ Thanks to macros, Clojure allows for powerful metaprogramming, making it possibl
   :condition (fn [_] true)})
 ```
 
-### Running a Background Job (e.g., Cleanup)
+### Deleting Temp Files Every 30 Minutes
 
 ```clojure
 (require '[clojure.java.io :as io])
